@@ -1,4 +1,4 @@
-class ApiBaseController < ApplicationController
+class ApiBaseController < ActionController::Base
   respond_to :json
 
   before_action :authenticate_user!

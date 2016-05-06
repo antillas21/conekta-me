@@ -6,7 +6,7 @@ class ChargesController < ApiBaseController
     if result.success?
       render json: result.charge.to_json, status: 200
     else
-      render json: { errors: result.errors.to_json }, status: 402
+      render json: { errors: result.errors }, status: 402
     end
   end
 
