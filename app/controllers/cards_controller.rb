@@ -1,4 +1,4 @@
-class CardsController < ApplicationController
+class CardsController < ApiBaseController
   respond_to :json
 
   def create

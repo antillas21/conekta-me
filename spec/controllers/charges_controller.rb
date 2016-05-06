@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe ChargesController do
+  before do
+    User.create(email: "foobar@example.com")
+  end
+
   describe "#create" do
     before(:each) do
       card = Card.new(
@@ -20,7 +24,8 @@ RSpec.describe ChargesController do
           card: @token,
           amount: 900,
           currency: "MXN"
-        }
+        },
+        token: User.first.api_token
       }
     end
 
@@ -47,7 +52,8 @@ RSpec.describe ChargesController do
           charge: {
             amount: 900,
             card: "invalid_token"
-          }
+          },
+          token: User.first.api_token
         }
       end
 
@@ -72,14 +78,14 @@ RSpec.describe ChargesController do
         card: "card_token_foo"
       )
 
-      get :show, { id: charge.id }, format: :json
+      get :show, { id: charge.id, token: User.first.api_token }, format: :json
       expect(response.status).to eq(200)
       json = JSON.parse(response.body)
       expect(json["card"]).to eq(charge.card)
     end
 
     it "returns 404 status if Charge objects doesn't exist" do
-      get :show, { id: SecureRandom.uuid }, format: :json
+      get :show, { id: SecureRandom.uuid, token: User.first.api_token }, format: :json
       expect(response.status).to eq(404)
       json = JSON.parse(response.body)
       expect(json["error"]).to eq("Not found")

@@ -1,4 +1,4 @@
-class ChargesController < ApplicationController
+class ChargesController < ApiBaseController
   respond_to :json
 
   def create

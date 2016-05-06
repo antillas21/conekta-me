@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.describe CardsController, type: :controller do
   describe "#create" do
+    before do
+      User.create(email: "foobar@example.com")
+    end
+
     context "valid card" do
       let(:valid_params) do
         {
@@ -11,7 +15,8 @@ RSpec.describe CardsController, type: :controller do
             exp_year: 2.years.from_now.year.to_s,
             exp_month: "10",
             cvc: "123"
-          }
+          },
+          token: User.first.api_token
         }
       end
 
@@ -24,7 +29,6 @@ RSpec.describe CardsController, type: :controller do
         post :create, valid_params, format: :json
         json = JSON.parse(response.body)
         expect(json["token"]).to_not be_nil
-        binding.pry
       end
     end
 
@@ -37,7 +41,8 @@ RSpec.describe CardsController, type: :controller do
             exp_year: 2.years.ago.year.to_s,
             exp_month: "10",
             cvc: "456"
-          }
+          },
+          token: User.first.api_token
         }
       end
 
