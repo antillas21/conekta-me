@@ -28,6 +28,7 @@ gem "mongoid", "4.0.2"
 gem "bson_ext"
 
 gem "figaro"
+gem "credit_card_validations"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -44,6 +45,7 @@ group :development, :test do
 
   gem "rspec-rails", "~> 3.0"
   gem "mongoid-rspec", "~> 2.1.0"
+  gem "pry-rails"
 end
 
 group :development do
