@@ -29,6 +29,7 @@ gem "bson_ext"
 
 gem "figaro"
 gem "credit_card_validations"
+gem "responders"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
